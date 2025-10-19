@@ -26,7 +26,10 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
-            background-size: auto;
+            background-image: url('2b nier.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         /* --- Efecto Scanline --- */
         body::after {
@@ -52,7 +55,7 @@
             max-width: 800px;
             width: 100%;
             animation: pulse 4s infinite linear;
-            background-color: rgba(10, 10, 10, 0.95);
+            background-color: rgba(10, 10, 10, 0.8);
             margin: 50px 0;
         }
         h1 {
@@ -75,7 +78,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 10, 10, 0.95); /* Match card background */
+            background: rgba(10, 10, 10, 0.8); /* Match card background */
             overflow: hidden;
             clip: rect(0, 900px, 0, 0);
         }
@@ -188,7 +191,7 @@
 <body>
     <div class="profile-card">
         <div class="header">
-            <svg viewBox="0 0 100 100" class="avatar-img" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 C25,10 10,30 10,50 C10,70 25,90 50,90 C75,90 90,70 90,50 C90,30 75,10 50,10 Z M50,15 C72,15 85,30 85,50 C85,68 72,85 50,85 C28,85 15,68 15,50 C15,30 28,15 50,15 Z"></path><path d="M35,40 Q40,30 45,40 Q40,35 35,40 Z"></path><path d="M55,40 Q60,30 65,40 Q60,35 55,40 Z"></path><path d="M30,60 Q50,75 70,60 Q50,65 30,60 Z"></path><line x1="50" y1="50" x2="50" y2="65" stroke="currentColor" stroke-width="2"></line></svg>
+            <img src="6TZwoNBg.jpg" alt="Avatar de Eudolio" class="avatar-img">
             <div>
                 <h1>Eudolio Vladimiro</h1>
                 <strong>Alias Digital:</strong> @EudolioXD
@@ -266,7 +269,7 @@
                     if (i < text.length) {
                         element.innerHTML = text.substring(0, i + 1) + cursor;
                         const cursorEl = element.querySelector('.cursor');
-                        if(cursorEl) cursorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // if(cursorEl) cursorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         i++;
                         setTimeout(type, typingSpeed);
                     } else {
@@ -284,7 +287,7 @@
                         const children = Array.from(section.el.children);
                         for (const child of children) {
                             child.style.visibility = 'visible';
-                            child.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            // child.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             await new Promise(resolve => setTimeout(resolve, 200));
                         }
                     } else {
