@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -5,18 +6,18 @@
     <title>Perfil: Eudolio Vladimiro [ALERTA ROJA]</title>
     <style>
         :root {
-            --main-color: #00BFFF;
+            --main-blue: #00BFFF;
+            --main-green: #00ff41;
+            --main-yellow: #ffff00;
+            --main-red: #ff0000;
             --bg-color: #0a0a0a;
-            --highlight-color: #90dfff;
-            --glitch-red: #ff0000;
-            --glitch-cyan: #00fff9;
         }
         html {
             scroll-behavior: smooth;
         }
         body {
             background-color: var(--bg-color);
-            color: var(--main-color);
+            color: var(--main-blue);
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             align-items: center;
@@ -44,10 +45,10 @@
         @keyframes scanline { 0% { transform: translateY(0); } 100% { transform: translateY(50px); } }
 
         .profile-card {
-            border: 2px solid var(--main-color);
+            border: 2px solid var(--main-blue);
             padding: 25px;
             border-radius: 5px;
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.5);
+            box-shadow: 0 0 25px var(--main-green);
             max-width: 800px;
             width: 100%;
             animation: pulse 4s infinite linear;
@@ -55,14 +56,14 @@
             margin: 50px 0;
         }
         h1 {
-            text-shadow: 0 0 5px var(--main-color), 0 0 10px var(--main-color);
-            border-bottom: 1px solid var(--main-color);
+            text-shadow: 0 0 5px var(--main-blue), 0 0 10px var(--main-blue);
+            border-bottom: 1px solid var(--main-blue);
             padding-bottom: 10px;
         }
         /* --- Efecto Glitch con Rojo --- */
         h2 {
-            text-shadow: 0 0 5px var(--main-color), 0 0 10px var(--main-color);
-            border-bottom: 1px solid var(--main-color);
+            text-shadow: 0 0 5px var(--main-blue), 0 0 10px var(--main-blue);
+            border-bottom: 1px solid var(--main-blue);
             padding-bottom: 10px;
             position: relative;
             animation: glitch-anim 5s infinite steps(1);
@@ -80,12 +81,12 @@
         }
         h2::before {
             left: 2px;
-            text-shadow: -2px 0 var(--glitch-red);
+            text-shadow: -2px 0 var(--main-red);
             animation: glitch-anim-2 5s infinite steps(1);
         }
         h2::after {
             left: -2px;
-            text-shadow: -2px 0 var(--glitch-cyan), 2px 2px var(--glitch-red);
+            text-shadow: -2px 0 var(--main-yellow), 2px 2px var(--main-red);
             animation: glitch-anim-3 5s infinite steps(1);
         }
         @keyframes glitch-anim { 0%, 100% { clip: rect(42px, 9999px, 44px, 0); transform: skew(0.5deg); } 5%, 95% { clip: rect(0, 9999px, 0, 0); transform: skew(0deg); } 10% { clip: rect(78px, 9999px, 82px, 0); transform: skew(0.8deg); } 15% { clip: rect(0, 9999px, 0, 0); transform: skew(0deg); } }
@@ -99,24 +100,24 @@
         }
         .avatar-img:hover, .skill-icon:hover {
             transform: scale(1.15);
-            filter: drop-shadow(0 0 8px var(--highlight-color));
+            filter: drop-shadow(0 0 8px var(--main-yellow));
             cursor: pointer;
         }
-        .avatar-img { width: 100px; height: 100px; border: 3px solid var(--main-color); border-radius: 50%; flex-shrink: 0; background-color: #000; padding: 10px; }
+        .avatar-img { width: 100px; height: 100px; border: 3px solid var(--main-blue); border-radius: 50%; flex-shrink: 0; background-color: #000; padding: 10px; }
         .skill-icon { width: 24px; height: 24px; flex-shrink: 0; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 25px rgba(0, 255, 65, 0.5); border-color: var(--main-color); } 50% { box-shadow: 0 0 40px rgba(0, 255, 65, 0.8); border-color: var(--highlight-color); } }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 25px var(--main-green); border-color: var(--main-blue); } 50% { box-shadow: 0 0 40px var(--main-green); border-color: var(--main-green); } }
         ul { list-style-type: none; padding-left: 0; }
         li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; visibility: hidden; }
         p { line-height: 1.6; visibility: hidden; }
-        strong { color: #fff; text-shadow: 0 0 3px var(--main-color); }
-        .cursor { display: inline-block; width: 10px; height: 1.2em; background-color: var(--main-color); animation: blink 1s step-end infinite; vertical-align: middle; }
+        strong { color: var(--main-yellow); text-shadow: 0 0 3px var(--main-yellow); }
+        .cursor { display: inline-block; width: 10px; height: 1.2em; background-color: var(--main-blue); animation: blink 1s step-end infinite; vertical-align: middle; }
         @keyframes blink { 50% { opacity: 0; } }
 
         .telegram-button {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background-color: var(--main-color);
+            background-color: var(--main-blue);
             color: var(--bg-color);
             padding: 8px 15px;
             text-decoration: none;
@@ -133,38 +134,39 @@
         }
         .telegram-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px var(--highlight-color);
+            box-shadow: 0 0 20px var(--main-yellow);
             animation: none; /* Pausa la animación en hover */
         }
 
         @keyframes pulse-button {
-            0% { box-shadow: 0 0 5px var(--main-color); }
-            50% { box-shadow: 0 0 20px var(--highlight-color); }
-            100% { box-shadow: 0 0 5px var(--main-color); }
+            0% { box-shadow: 0 0 5px var(--main-blue); }
+            50% { box-shadow: 0 0 20px var(--main-yellow); }
+            100% { box-shadow: 0 0 5px var(--main-blue); }
         }
 
         #system-log {
             background-color: #000;
-            border: 1px solid var(--main-color);
+            border: 1px solid var(--main-blue);
             border-radius: 3px;
             padding: 15px;
             margin-top: 20px;
             height: 150px;
             overflow-y: auto;
             font-size: 0.9em;
+            color: var(--main-green);
         }
         .log-entry {
             white-space: pre-wrap;
             visibility: hidden; /* Initially hidden for animation */
         }
         .log-entry .timestamp {
-            color: var(--highlight-color);
+            color: var(--main-yellow);
         }
         .log-entry .status-success {
-            color: #00ff41; /* Green */
+            color: var(--main-green);
         }
         .log-entry .status-failed {
-            color: #ff4141; /* Red */
+            color: var(--main-red);
         }
 
         .security-footer {
@@ -190,18 +192,30 @@
             <div>
                 <h1>Eudolio Vladimiro</h1>
                 <strong>Alias Digital:</strong> @EudolioXD
-                <br><a href="https://t.me/EudolioXD" target="_blank" class="telegram-button"><svg viewBox="0 0 24 24" class="telegram-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16.79,9.28,13.2,20.8a1,1,0,0,1-1.9.2L8.2,15.3,4.5,12.5a1,1,0,0,1,.2-1.9L15.8,4.21a1,1,0,0,1,1.22,1.22Z"/></svg>Chat Seguro por Telegram &raquo;</a>
+                <br>
+                <strong>Jurisdicción:</strong> Perú (Servicios Exclusivos)
+                <div style="margin-top: 10px;">
+                    <a href="https://t.me/EudolioXD" target="_blank" class="telegram-button">Contacto y Servicios Privados &raquo;</a>
+                    <span style="font-size: 0.8em; opacity: 0.7; display: block; margin-top: 4px; max-width: 220px;">Chat directo para consultas y contrataciones.</span>
+                </div>
             </div>
+        </div>
+
+        <h2 data-text="Protocolo de Certificación">Protocolo de Certificación</h2>
+        <p id="type-afiliaciones">Certificado oficialmente por ACCESO PERU, con credenciales de staff.</p>
+                <div style="margin-top: 10px; margin-bottom: 20px;">
+            <a href="https://t.me/accesos_peru" target="_blank" class="telegram-button">Unirse a la Comunidad &raquo;</a>
+            <span style="font-size: 0.8em; opacity: 0.7; display: block; margin-top: 4px;">Grupo oficial para miembros y entusiastas.</span>
         </div>
         
         <h2 data-text="Mundo">Mundo</h2>
-        <p id="type-mundo" style="visibility: visible;">Eudolio no vive en una ciudad, vive en la red de canales, supergrupos y APIs de Telegram. Su "apartamento" es un servidor privado virtual (VPS) y sus "calles" son los flujos de datos entre conversaciones y bots.</p>
+        <p id="type-mundo" style="visibility: visible;">Opera exclusivamente en el ecosistema digital de Telegram. Su infraestructura se basa en servidores privados (VPS), utilizando flujos de datos como principal medio de interacción.</p>
 
         <h2 data-text="Habilidades">Habilidades</h2>
         <ul id="type-habilidades">
-            <li style="visibility: visible;"><svg viewBox="0 0 32 32" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16,3.2A12.8,12.8,0,0,0,3.2,16,12.8,12.8,0,0,0,16,28.8,12.8,12.8,0,0,0,28.8,16,12.8,12.8,0,0,0,16,3.2Z M16,26.4A10.4,10.4,0,0,1,5.6,16,10.4,10.4,0,0,1,16,5.6,10.4,10.4,0,0,1,26.4,16,10.4,10.4,0,0,1,16,26.4Z"></path><path d="M19.2,12.8a3.2,3.2,0,1,1,3.2-3.2A3.2,3.2,0,0,1,19.2,12.8Z M12.8,19.2a3.2,3.2,0,1,1,3.2-3.2A3.2,3.2,0,0,1,12.8,19.2Z"></path></svg><strong>Aprendiz de Python:</strong> Con experiencia en scripts de Python, especializado en la API de Telegram.</li>
-            <li style="visibility: visible;"><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12,2C6.5,2,2,3.8,2,6v12c0,2.2,4.5,4,10,4s10-1.8,10-4V6C22,3.8,17.5,2,12,2z M12,4c4.4,0,8,1.3,8,3s-3.6,3-8,3S4,8.4,4,7S7.6,4,12,4z M20,15.8c0,1-3,2-8,2s-8-1-8-2V13c1.2,0.9,4.1,1.8,8,1.8s6.8-0.9,8-1.8V15.8z M20,10.8c0,1-3,2-8,2s-8-1-8-2V8c1.2,0.9,4.1,1.8,8,1.8s6.8-0.9,8-1.8V10.8z"></path></svg><strong>Creador de Bots:</strong> Diseña y despliega bots para casi cualquier propósito.</li>
-            <li style="visibility: visible;"><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="4" r="3"></circle><circle cx="6" cy="20" r="3"></circle><circle cx="18" cy="20" r="3"></circle><path d="M12,7v10M8.5,17.5l-2-11.5M15.5,17.5l2-11.5" stroke="currentColor" stroke-width="2"></path></svg><strong>Guerra de Información:</strong> Sabe cómo manipular la información y crear tendencias.</li>
+            <li style="visibility: visible;"><svg viewBox="0 0 32 32" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16,3.2A12.8,12.8,0,0,0,3.2,16,12.8,12.8,0,0,0,16,28.8,12.8,12.8,0,0,0,28.8,16,12.8,12.8,0,0,0,16,3.2Z M16,26.4A10.4,10.4,0,0,1,5.6,16,10.4,10.4,0,0,1,16,5.6,10.4,10.4,0,0,1,26.4,16,10.4,10.4,0,0,1,16,26.4Z"/><path d="M19.2,12.8a3.2,3.2,0,1,1,3.2-3.2A3.2,3.2,0,0,1,19.2,12.8Z M12.8,19.2a3.2,3.2,0,1,1,3.2-3.2A3.2,3.2,0,0,1,12.8,19.2Z"/></svg><strong>Desarrollo en Python:</strong> Especializado en scripting y automatización a través de la API de Telegram.</li>
+            <li style="visibility: visible;"><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12,2C6.5,2,2,3.8,2,6v12c0,2.2,4.5,4,10,4s10-1.8,10-4V6C22,3.8,17.5,2,12,2z M12,4c4.4,0,8,1.3,8,3s-3.6,3-8,3S4,8.4,4,7S7.6,4,12,4z M20,15.8c0,1-3,2-8,2s-8-1-8-2V13c1.2,0.9,4.1,1.8,8,1.8s6.8-0.9,8-1.8V15.8z M20,10.8c0,1-3,2-8,2s-8-1-8-2V8c1.2,0.9,4.1,1.8,8,1.8s6.8-0.9,8-1.8V10.8z"/><path d="M12,2C6.5,2,2,3.8,2,6v12c0,2.2,4.5,4,10,4s10-1.8,10-4V6C22,3.8,17.5,2,12,2z M12,4c4.4,0,8,1.3,8,3s-3.6,3-8,3S4,8.4,4,7S7.6,4,12,4z M20,15.8c0,1-3,2-8,2s-8-1-8-2V13c1.2,0.9,4.1,1.8,8,1.8s6.8-0.9,8-1.8V15.8z M20,10.8c0,1-3,2-8,2s-8-1-8-2V8c1.2,0.9,4.1,1.8,8,1.8s6.8-0.9,8-1.8V10.8z"/></svg><strong>Arquitectura de Bots:</strong> Diseño y despliegue de bots automatizados para diversas aplicaciones.</li>
+            <li style="visibility: visible;"><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="4" r="3"/><circle cx="6" cy="20" r="3"/><circle cx="18" cy="20" r="3"/><path d="M12,7v10M8.5,17.5l-2-11.5M15.5,17.5l2-11.5" stroke="currentColor" stroke-width="2"/></svg><strong>Inteligencia Digital:</strong> Capacidad para el análisis y manipulación de flujos de información para la generación de tendencias.</li>
         </ul>
 
         <h2 data-text="Estadísticas">Estadísticas</h2>
@@ -212,7 +226,7 @@
         </ul>
 
         <h2 data-text="Historia y Objetivo">Historia y Objetivo</h2>
-        <p id="type-historia" style="visibility: visible;">La motivación de @EudolioXD no es el dinero, sino el poder. Ve el ecosistema digital como un tablero de juego donde puede alterar la percepción y la realidad a su antojo. Su objetivo es convertirse en una influencia invisible pero todopoderosa dentro de la red, un titiritero digital.</p>
+        <p id="type-historia" style="visibility: visible;">Motivado por la influencia sobre el ecosistema digital, no por el lucro. Su objetivo es operar como un actor clave e invisible en la red, capaz de modular la percepción y la realidad a través de la manipulación de datos.</p>
 
         <h2 data-text="Registro del Sistema">Registro del Sistema</h2>
         <div id="system-log"></div>
@@ -229,6 +243,7 @@
             const sectionDelay = 300;
 
             const sections = [
+                { el: document.getElementById('type-afiliaciones'), text: document.getElementById('type-afiliaciones').innerHTML },
                 { el: document.getElementById('type-mundo'), text: document.getElementById('type-mundo').innerHTML },
                 { el: document.getElementById('type-habilidades'), children: true },
                 { el: document.getElementById('type-estadisticas'), children: true },
