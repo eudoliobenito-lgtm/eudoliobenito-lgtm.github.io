@@ -15,6 +15,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         :root {
             --main-blue: #00BFFF;
             --main-green: #00ff41;
@@ -28,7 +29,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--main-blue);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Share Tech Mono', monospace;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -36,7 +37,7 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
-            background-image: url('2b nier.jpg');
+            background-image: url('nier-automata-2b-and-9s-gl.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -95,7 +96,10 @@
         
         ul { list-style-type: none; padding-left: 0; }
         li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        p { line-height: 1.6; }
+        p { 
+            line-height: 1.6; 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
         strong { color: var(--main-yellow); text-shadow: 0 0 3px var(--main-yellow); }
         
         .cursor { display: inline-block; width: 10px; height: 1.2em; background-color: var(--main-blue); animation: blink 1s step-end infinite; vertical-align: middle; }
@@ -130,16 +134,65 @@
             100% { box-shadow: 0 0 5px var(--main-blue); }
         }
 
-        #system-log {
+        @keyframes futuristic-border {
+            0%, 100% {
+                box-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41 inset;
+            }
+            50% {
+                box-shadow: 0 0 20px #00ff41, 0 0 30px #00ff41 inset;
+            }
+        }
+
+        #system-log-container {
+            border: 3px solid #00ff41; /* Neon green */
+            border-radius: 5px;
             background-color: #000;
-            border: 1px solid var(--main-blue);
-            border-radius: 3px;
-            padding: 15px;
             margin-top: 20px;
+            overflow: hidden;
+            animation: futuristic-border 3s infinite linear;
+        }
+
+        .terminal-header {
+            background-color: #1a1a1a;
+            padding: 5px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .terminal-title {
+            color: #fff;
+            font-size: 0.9em;
+            margin-right: auto; /* Pushes the buttons to the right */
+            padding-left: 8px;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 6px;
+            cursor: pointer;
+        }
+
+        .btn-close { background-color: #ff5f56; }
+        .btn-minimize { background-color: #ffbd2e; }
+        .btn-maximize { background-color: #27c93f; }
+
+        #system-log {
+            background-image: url('Kali_Linux.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 15px;
             height: 150px;
             overflow-y: auto;
             font-size: 0.9em;
             color: var(--main-green);
+            background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent overlay */
+            background-blend-mode: darken;
+            border: none;
+            border-radius: 0;
+            margin-top: 0;
         }
         .log-entry { white-space: pre-wrap; }
         .log-entry .timestamp { color: var(--main-yellow); }
@@ -157,6 +210,47 @@
             gap: 5px;
         }
         .security-icon { width: 1em; height: 1em; }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .profile-card {
+                padding: 20px;
+                margin: 20px 0;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .profile-card {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            .telegram-button {
+                padding: 6px 12px;
+                font-size: 0.9em;
+            }
+            #system-log {
+                height: 120px;
+                font-size: 0.8em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -209,7 +303,15 @@
         <h2 data-text="Historia y Objetivo"></h2>
         <p>Motivado por la influencia sobre el ecosistema digital, no por el lucro. Su objetivo es operar como un actor clave e invisible en la red, capaz de modular la percepción y la realidad a través de la manipulación de datos.</p>
 
-        <div id="system-log"></div>
+        <div id="system-log-container">
+            <div class="terminal-header">
+                <div class="terminal-title">White Hat Shell</div>
+                <div class="terminal-button btn-minimize"></div>
+                <div class="terminal-button btn-maximize"></div>
+                <div class="terminal-button btn-close"></div>
+            </div>
+            <div id="system-log"></div>
+        </div>
 
         <div class="security-footer">
             <svg viewBox="0 0 24 24" class="security-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
@@ -224,7 +326,7 @@
             const canvas = document.getElementById('matrix-canvas');
             const ctx = canvas.getContext('2d');
             const bgImage = new Image();
-            bgImage.src = '2b nier.jpg';
+            bgImage.src = 'nier-automata-2b-and-9s-gl.jpg';
 
             let animationFrameId;
 
@@ -249,7 +351,7 @@
                 }
                 
                 // Draw semi-transparent overlay
-                ctx.fillStyle = 'rgba(10, 10, 10, 0.8)';
+                ctx.fillStyle = 'rgba(10, 10, 10, 0.6)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 // Draw rain drops
