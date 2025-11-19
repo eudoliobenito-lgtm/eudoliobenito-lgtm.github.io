@@ -15,7 +15,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
         :root {
             --main-blue: #2C75FF; /* Electric Blue */
             --main-green: #00ff41;
@@ -29,13 +29,13 @@
         body {
             background-color: var(--bg-color);
             color: var(--main-blue);
-            font-family: 'Share Tech Mono', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px 120px; /* Add horizontal padding */
+            padding: 20px; /* Simplified padding */
             box-sizing: border-box;
             background-image: url('kali_linux_wallpaper_with_baybayin_by_viyogi_ddswlnu-fullview.jpg');
             background-size: cover;
@@ -44,14 +44,15 @@
         }
 
         .profile-card {
-            position: relative; /* Needed for canvas positioning */
-            /* border: 2px solid var(--main-blue); */
-            padding: 0;
-            border-radius: 0;
-            /* box-shadow: 0 0 25px var(--main-green); */
+            position: relative;
+            background-color: rgba(10, 10, 10, 0.75); /* Dark semi-transparent background */
+            color: #E0E0E0; /* Lighter text color for contrast */
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.4); /* Subtle green shadow */
+            border: 1px solid rgba(0, 255, 65, 0.5);
             width: 100%;
-            animation: none;
-            background-color: transparent; /* Made transparent for canvas background */
+            max-width: 1200px; /* Max width for larger screens */
             margin: 0;
             overflow: visible;
         }
@@ -73,9 +74,12 @@
         }
 
         h1 {
-            text-shadow: 0 0 5px var(--main-blue), 0 0 10px var(--main-blue);
-            border-bottom: 1px solid var(--main-blue);
-            padding-bottom: 10px;
+            font-size: 4em; /* Much larger font size */
+            text-shadow: 0 0 10px var(--main-blue), 0 0 20px var(--main-blue);
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            border: 2px solid var(--main-blue);
+            border-radius: 5px;
         }
         
         h2 {
@@ -86,26 +90,62 @@
             color: var(--main-yellow);
         }
 
-        .header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
-        
-        .avatar-img, .skill-icon {
-            transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+        .header { 
+            display: flex; 
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            gap: 20px; 
+            margin-bottom: 20px; 
+            width: 100%; /* Make header take full width */
         }
-        .avatar-img:hover, .skill-icon:hover {
+        
+        .avatar-container {
+            position: relative;
+            width: 180px; /* New size */
+            height: 180px; /* New size */
+            border-radius: 25px; /* New shape */
+            border: 3px solid var(--main-blue);
+            background-color: #000;
+            padding: 10px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+        }
+        .avatar-container:hover {
+            box-shadow: 0 0 15px var(--main-yellow);
+        }
+        .avatar-img-static, .avatar-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            border-radius: 25px; /* New shape */
+            object-fit: cover;
+        }
+        .avatar-video {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .avatar-container:hover .avatar-video {
+            opacity: 1;
+        }
+        /* Re-separated skill-icon specific hover and base styles */
+        .skill-icon:hover {
             transform: scale(1.15);
             filter: drop-shadow(0 0 8px var(--main-yellow));
             cursor: pointer;
         }
-        .avatar-img { width: 100px; height: 100px; border: 3px solid var(--main-blue); border-radius: 50%; flex-shrink: 0; background-color: #000; padding: 10px; }
-        .skill-icon { width: 24px; height: 24px; flex-shrink: 0; }
+        .skill-icon { width: 24px; height: 24px; flex-shrink: 0; transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out; }
         
         @keyframes pulse { 0%, 100% { box-shadow: 0 0 25px var(--main-green); border-color: var(--main-blue); } 50% { box-shadow: 0 0 40px var(--main-green); border-color: var(--main-green); } }
         
         ul { list-style-type: none; padding-left: 0; }
-        li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; text-shadow: 1px 1px 5px rgba(0, 0, 0, 1); }
+        li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         p { 
             line-height: 1.6; 
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
         }
         strong { color: var(--main-yellow); text-shadow: 0 0 3px var(--main-yellow); }
         
@@ -256,8 +296,67 @@
             border-radius: 3px;
         }
 
+        /* Service Grid Styles */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px; /* Space before exclusive services */
+        }
+        .service-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 5px;
+            border: 1px solid var(--main-blue);
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px var(--main-blue);
+            border-color: var(--main-yellow);
+        }
+        .service-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--main-yellow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2em;
+        }
+        .service-card p {
+            margin-bottom: 0;
+            color: #E0E0E0;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        .exclusive-services-list li {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid var(--main-red);
+            margin-bottom: 15px;
+        }
+        .exclusive-services-list li strong {
+            color: var(--main-yellow);
+        }
+
         /* Responsive Styles */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) { /* Tablets and smaller laptops */
+            .service-grid {
+                grid-template-columns: 1fr; /* Stack cards in a single column */
+            }
+            .matrix-border { /* Hide matrix on smaller screens to save space and performance */
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) { /* Tablets */
+            body {
+                padding: 15px; /* Slightly more padding for tablets */
+            }
             .profile-card {
                 padding: 20px;
                 margin: 20px 0;
@@ -267,17 +366,18 @@
                 text-align: center;
             }
             h1 {
-                font-size: 1.8em;
+                font-size: 2.2em; /* Adjust H1 for tablets */
             }
             h2 {
-                font-size: 1.3em;
+                font-size: 1.6em; /* Adjust H2 for tablets */
             }
-            .two-column-layout {
-                grid-template-columns: 1fr;
+            .avatar-container { /* Adjust avatar size for tablets */
+                width: 120px;
+                height: 120px;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 480px) { /* Mobile phones */
             body {
                 padding: 10px;
             }
@@ -285,10 +385,10 @@
                 padding: 15px;
             }
             h1 {
-                font-size: 1.5em;
+                font-size: 1.8em; /* Further adjust H1 for mobile */
             }
             h2 {
-                font-size: 1.2em;
+                font-size: 1.3em; /* Further adjust H2 for mobile */
             }
             .telegram-button {
                 padding: 6px 12px;
@@ -298,6 +398,16 @@
                 height: 120px;
                 font-size: 0.8em;
             }
+            .service-card h3 {
+                font-size: 1.1em;
+            }
+            .service-card p {
+                font-size: 0.9em;
+            }
+            .avatar-container { /* Adjust avatar size for mobile */
+                width: 80px;
+                height: 80px;
+            }
         }
     </style>
 </head>
@@ -306,13 +416,12 @@
     <canvas id="right-matrix-canvas" class="matrix-border"></canvas>
     <div class="profile-card">
         <div class="header">
-            <img src="6TZwoNBg.jpg" alt="Avatar de Eudolio" class="avatar-img">
+            <div class="avatar-container">
+                <img src="6TZwoNBg.jpg" alt="Avatar de Eudolio" class="avatar-img-static">
+                <video src="doc_2025-11-18_19-50-08.mp4" class="avatar-video" loop muted playsinline></video>
+            </div>
             <div>
-                <h1 class="glitch">
-                    <span aria-hidden="true">Eudolio Vladimiro</span>
-                    Eudolio Vladimiro
-                    <span aria-hidden="true">Eudolio Vladimiro</span>
-                </h1>
+                <h1 class="glitch">Eudolio Vladimiro</h1>
                 <strong>Alias Digital:</strong> @EudolioXD
                 <br>
                 <strong>Jurisdicción:</strong> Perú (Servicios Exclusivos)
@@ -346,54 +455,70 @@
         <div class="two-column-layout">
             <div>
                 <h2 data-text="Servicios"></h2>
-                <div class="two-column-list">
-                    <ul id="type-servicios-1">
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Bloqueo de Líneas y Equipos:</strong> Inhabilitación de líneas móviles (postpago y prepago) y bloqueo de equipos por IMEI en todos los operadores, dejando el dispositivo y la línea inutilizables.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Bot de Doxeo Avanzado:</strong> Acceso a una herramienta automatizada con más de 40 comandos especializados para la recopilación de información (OSINT) ilimitada, disponible mediante suscripción mensual.</li>
-                        <li>
-                            <svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-                            <strong style="color: #007bff;">Emisión de Certificados Médicos:</strong> 
-                            <span style="color: #28a745;">Expedición de certificados médicos y recetas, debidamente firmados y sellados por doctores colegiados y habilitados. Se ofrecen tanto certificados de clínicas como certificados manuscritos, todos con la validez y respaldo profesional correspondiente.</span>
-                            <svg viewBox="0 0 64 64" class="skill-icon" fill="#007bff" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;"><path d="M32 2C15.4 2 2 15.4 2 32s13.4 30 30 30 30-13.4 30-30S48.6 2 32 2zm0 58C16.5 60 4 47.5 4 32S16.5 4 32 4s28 12.5 28 28-12.5 28-28 28z"/><path d="M48 30h-8v-8c0-1.1-.9-2-2-2s-2 .9-2 2v8h-8c-1.1 0-2 .9-2 2s.9 2 2 2h8v8c0 1.1.9 2 2 2s2-.9 2-2v-8h8c1.1 0 2-.9 2-2s-.9-2-2-2z"/></svg>
-                        </li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Activación de Marketplace en Facebook:</strong> Asesoría y soporte para la activación de la función Marketplace en cuentas de Facebook existentes, garantizando el cumplimiento de los requisitos y políticas de la plataforma.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Verificación por SMS para Activación de Cuentas:</strong> Soporte para la activación de cuentas en diversas plataformas (WhatsApp, Telegram, Google, etc.) mediante la recepción segura y privada de códigos de verificación por SMS. Este servicio está diseñado para asistir a usuarios con dificultades para recibir SMS, garantizando en todo momento la confidencialidad y el uso legítimo de la información.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Consulta de Certificado C4 (RENIEC):</strong> Obtención del Certificado de Inscripción (C4) de RENIEC, que contiene los datos básicos de identificación de un ciudadano. Útil como constancia de identidad en diversas gestiones.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Ficha RENIEC:</strong> Obtención de la Ficha de Inscripción de RENIEC, que contiene información detallada del ciudadano.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Árbol Genealógico:</strong> Elaboración del árbol genealógico para la investigación de ascendencia y lazos familiares.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Titular de Número:</strong> Identificación del titular de una línea telefónica móvil o fija.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>DNI:</strong> Búsqueda de información a partir del Documento Nacional de Identidad (DNI).</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Requisitorias:</strong> Consulta de requisitorias a nivel nacional para verificar la situación legal de una persona.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Antecedentes Policiales:</strong> Obtención del certificado de antecedentes policiales para trámites y verificaciones.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Antecedentes Penales:</strong> Obtención del certificado de antecedentes penales para fines legales y administrativos.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Antecedentes Judiciales:</strong> Obtención del certificado de antecedentes judiciales para verificar el historial legal de una persona.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Denuncias:</strong> Búsqueda y consulta de denuncias registradas en el sistema policial.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Fiscalía:</strong> Consulta de expedientes y casos en el sistema de la Fiscalía de la Nación.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Acta de Nacimiento:</strong> Obtención de copias certificadas del acta de nacimiento.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Acta de Defunción:</strong> Obtención de copias certificadas del acta de defunción.</li>
-                    </ul>
-                    <ul id="type-servicios-2">
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Acta de Matrimonio:</strong> Obtención de copias certificadas del acta de matrimonio.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Infocorp:</strong> Consulta del historial crediticio y deudas en la central de riesgo Infocorp.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Migraciones:</strong> Consulta de movimientos migratorios y situación migratoria en la Superintendencia Nacional de Migraciones.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Direcciones:</strong> Búsqueda y verificación de direcciones de residencia.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>SUNAT:</strong> Consulta de información tributaria y RUC en la Superintendencia Nacional de Aduanas y de Administración Tributaria.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>SUNARP:</strong> Consulta de registros de propiedad de bienes muebles e inmuebles en la Superintendencia Nacional de los Registros Públicos.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Copia Literal:</strong> Obtención de copias literales de partidas registrales en SUNARP.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>SUNEDU:</strong> Consulta de grados y títulos en la Superintendencia Nacional de Educación Superior Universitaria.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>MINEDU:</strong> Consulta de información en el sistema del Ministerio de Educación.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>MTC:</strong> Consulta de licencias de conducir y otros trámites en el Ministerio de Transportes y Comunicaciones.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Propiedades:</strong> Búsqueda de propiedades y bienes a nombre de una persona o empresa.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Sueldo:</strong> Investigación y estimación de ingresos y sueldos.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Familia:</strong> Investigación de vínculos familiares y de parentesco.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Cónyuges:</strong> Verificación del estado civil y datos del cónyuge.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Trabajos:</strong> Investigación del historial laboral y empleos anteriores.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Financiero:</strong> Análisis del perfil financiero y crediticio de una persona.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Celulares:</strong> Búsqueda de números de celular asociados a una persona.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Correos:</strong> Búsqueda de direcciones de correo electrónico asociadas a una persona.</li>
-                        <li><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg><strong>Multas:</strong> Consulta de multas de tránsito y otras sanciones.</li>
-                    </ul>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <h3><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>Plataforma OSINT y Búsqueda de Información</h3>
+                        <p>Acceso a un conjunto de herramientas automatizadas (Bot) y servicios de consulta para la obtención de datos específicos, incluyendo: identificación de titulares, perfiles financieros, historial laboral, DNI, direcciones, información de contacto (celular/correo) y vínculos familiares/personales.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>Gestión de Registros Públicos y Legales</h3>
+                        <p>Servicio unificado para la obtención y consulta de una amplia gama de documentos y registros de entidades gubernamentales y centrales de riesgo, incluyendo: RENIEC (C4, Ficha), antecedentes (Policial, Penal, Judicial), historial crediticio (Infocorp), registros de propiedad (SUNARP), situación migratoria, estado tributario (SUNAT) y más.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>Verificación de Cuentas y Plataformas</h3>
+                        <p>Servicio principal para la recepción segura de códigos de verificación por SMS, garantizando la activación de cuentas en múltiples plataformas (WhatsApp, Telegram, Google, Facebook, etc.). Adicionalmente, se incluye soporte para la habilitación de funciones como Facebook Marketplace.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3><svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>Servicios de Telecomunicaciones</h3>
+                        <p>Inhabilitación de líneas móviles (postpago y prepago) y bloqueo de equipos por código IMEI en todos los operadores, dejando el dispositivo o la línea completamente inutilizables.</p>
+                    </div>
                 </div>
+
+                <h2 data-text="Servicios Exclusivos"></h2>
+                <ul class="exclusive-services-list">
+                    <li>
+                        <svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                        <strong style="color: #007bff;">Emisión de Certificados Médicos:</strong> 
+                        <span style="color: #28a745; text-shadow: 0 0 5px #28a745, 0 0 10px #28a745;">Expedición de certificados médicos y recetas, debidamente firmados y sellados por doctores colegiados y habilitados. Se ofrecen tanto certificados de clínicas como certificados manuscritos, todos con la validez y respaldo profesional correspondiente.</span>
+                    </li>
+                    <li style="color: var(--main-red); text-shadow: 0 0 5px var(--main-red);">
+                        <svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                        <div>
+                            <strong>Supresión de Requisitorias:</strong>
+                            <span style="text-shadow: 0 0 5px var(--main-red), 0 0 10px var(--main-red);">Anulación de requisitorias a nivel de sistema, gestionado directamente desde la base de datos central.</span>
+                            <br>
+                            <small style="display: block; opacity: 0.8; margin-top: 5px;">* Servicio exclusivo de alta demanda, disponible únicamente durante ciclos operativos limitados hasta agotar cuota. Se requiere consulta previa de viabilidad.</small>
+                        </div>
+                    </li>
+                    <li style="color: var(--main-red); text-shadow: 0 0 5px var(--main-red);">
+                        <svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                        <div>
+                            <strong>Dispensación de Lotes SIM Pre-activados:</strong>
+                            <span style="text-shadow: 0 0 5px var(--main-red);">Provisión de tarjetas SIM en volumen, activadas con perfiles de identidad no individualizados, compatibles con todos los operadores nacionales. Ideales para operaciones que requieren anonimato y diversificación de comunicaciones.</span>
+                        </div>
+                    </li>
+                    <li style="color: var(--main-red); text-shadow: 0 0 5px var(--main-red);">
+                        <svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                        <div>
+                            <strong>Gestión de Accesos a Plataformas Financieras:</strong>
+                            <span style="text-shadow: 0 0 5px var(--main-red);">Habilitación de acceso a interfaces actualizadas de las principales entidades (BCP, Yape, Interbank, Scotiabank). El servicio incluye credenciales de único uso para la simulación de entornos operativos.</span>
+                        </div>
+                    </li>
+                    <li style="color: var(--main-red); text-shadow: 0 0 5px var(--main-red);">
+                        <svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                        <div>
+                            <strong>Suministro de Billetes G5 de Alta Fidelidad:</strong>
+                            <span style="text-shadow: 0 0 5px var(--main-red);">Disponibilidad de réplicas de papel moneda peruano (denominaciones de S/ 20, S/ 50, S/ 100) diseñados con un nivel de detalle superior para fines de producción audiovisual, capacitación o utilería.</span>
+                        </div>
+                    </li>
+                    <li style="color: var(--main-red); text-shadow: 0 0 5px var(--main-red);">
+                        <svg viewBox="0 0 24 24" class="skill-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                        <div>
+                            <strong>Emisión y Gestión de Documentación Identificatoria y Credenciales:</strong>
+                            <span style="text-shadow: 0 0 5px var(--main-red);">Servicio integral para la elaboración y envío de documentos de identificación personal: DNI (versiones amarillo/azul sin QR, electrónico V2 y V4), Licencias de Conducir con impresión 3D, Tarjetas de Propiedad vehicular físicas, y credenciales institucionales (Conadis, Policial, Bombero, Universitario).</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -461,6 +586,39 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
+            // --- AVATAR VIDEO ON HOVER ---
+            const avatarContainer = document.querySelector('.avatar-container');
+            const avatarVideo = document.querySelector('.avatar-video');
+
+            if (avatarContainer && avatarVideo) {
+                const playVideo = () => {
+                    avatarVideo.play().catch(error => {
+                        // Autoplay was prevented.
+                        console.log("Video play failed:", error);
+                    });
+                };
+
+                const pauseVideo = () => {
+                    avatarVideo.pause();
+                    avatarVideo.currentTime = 0;
+                };
+
+                let isPlaying = false;
+                const togglePlay = (e) => {
+                    e.preventDefault();
+                    if (isPlaying) {
+                        pauseVideo();
+                    } else {
+                        playVideo();
+                    }
+                    isPlaying = !isPlaying;
+                };
+
+                avatarContainer.addEventListener('mouseenter', playVideo);
+                avatarContainer.addEventListener('mouseleave', pauseVideo);
+                avatarContainer.addEventListener('touchstart', togglePlay, { passive: false });
+            }
+
             // --- MATRIX RAIN ANIMATION ---
             const leftCanvas = document.getElementById('left-matrix-canvas');
             const rightCanvas = document.getElementById('right-matrix-canvas');
