@@ -129,8 +129,14 @@
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
-        .avatar-container:hover .avatar-video {
+        .avatar-container.is-playing .avatar-video {
             opacity: 1;
+        }
+        .avatar-container.is-playing .avatar-img-static {
+            opacity: 0;
+        }
+        .avatar-img-static {
+            transition: opacity 0.5s ease-in-out;
         }
         /* Re-separated skill-icon specific hover and base styles */
         .skill-icon:hover {
@@ -418,7 +424,7 @@
         <div class="header">
             <div class="avatar-container">
                 <img src="6TZwoNBg.jpg" alt="Avatar de Eudolio" class="avatar-img-static">
-                <video src="doc_2025-11-18_19-50-08.mp4" class="avatar-video" loop muted playsinline></video>
+                <video src="doc_2025-11-18_19-50-08.mp4" class="avatar-video" muted playsinline></video>
             </div>
             <div>
                 <h1 class="glitch">Eudolio Vladimiro</h1>
@@ -586,39 +592,30 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- AVATAR VIDEO ON HOVER ---
-            const avatarContainer = document.querySelector('.avatar-container');
-            const avatarVideo = document.querySelector('.avatar-video');
-
-            if (avatarContainer && avatarVideo) {
-                const playVideo = () => {
-                    avatarVideo.play().catch(error => {
-                        // Autoplay was prevented.
-                        console.log("Video play failed:", error);
-                    });
-                };
-
-                const pauseVideo = () => {
-                    avatarVideo.pause();
-                    avatarVideo.currentTime = 0;
-                };
-
-                let isPlaying = false;
-                const togglePlay = (e) => {
-                    e.preventDefault();
-                    if (isPlaying) {
-                        pauseVideo();
-                    } else {
-                        playVideo();
+                    // --- AVATAR VIDEO ON CLICK/TAP ---
+                    const avatarContainer = document.querySelector('.avatar-container');
+                    const avatarVideo = document.querySelector('.avatar-video');
+            
+                    if (avatarContainer && avatarVideo) {
+                        avatarContainer.addEventListener('click', () => {
+                            // Prevenir comportamiento predeterminado si es necesario, ej. si el avatar está dentro de un <a>
+                            // event.preventDefault(); 
+            
+                            if (avatarVideo.paused) {
+                                avatarVideo.play().catch(error => console.log("Video play failed:", error));
+                                avatarContainer.classList.add('is-playing');
+                            } else {
+                                avatarVideo.pause();
+                                avatarContainer.classList.remove('is-playing');
+                            }
+                        });
+            
+                        // Opcional: Si el video termina, resetea la apariencia para mostrar la imagen estática de nuevo.
+                        avatarVideo.addEventListener('ended', () => {
+                            avatarContainer.classList.remove('is-playing');
+                            avatarVideo.currentTime = 0; // Reinicia el video al principio
+                        });
                     }
-                    isPlaying = !isPlaying;
-                };
-
-                avatarContainer.addEventListener('mouseenter', playVideo);
-                avatarContainer.addEventListener('mouseleave', pauseVideo);
-                avatarContainer.addEventListener('touchstart', togglePlay, { passive: false });
-            }
-
             // --- MATRIX RAIN ANIMATION ---
             const leftCanvas = document.getElementById('left-matrix-canvas');
             const rightCanvas = document.getElementById('right-matrix-canvas');
